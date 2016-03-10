@@ -1,0 +1,11 @@
+Part 1
+1. Training: Read files in dir into a tree map, do twice, once for spam, once for ham
+
+2. on new "test" set categorize test messages.
+
+3. draw the messages in a table view. Whether or not it's spam etc
+
+Part 2
+1. Can we improve it?
+
+n-grams
