@@ -15,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import javax.activation.DataSource;
 import java.io.File;
 import java.util.ArrayList;
@@ -34,35 +33,29 @@ public class Main extends Application {
 
 
         // figure out if url provided works
-
-        File spamDir = new File("c:/Users/Irfaan/Documents/GitHub/Colab_Work/csci2020u/assignments/assignment01/out/production/assignment01/data/train/spam");
-        File hamDir = new File("c:/Users/Irfaan/Documents/GitHub/Colab_Work/csci2020u/assignments/assignment01/out/production/assignment01/data/train/ham");
-        File spamTest = new File("c:/Users/Irfaan/Documents/GitHub/Colab_Work/assignments/assignment01/out/production/assignment01/data/test/spam");
-        File hamTest = new File("c:/Users/Irfaan/Documents/GitHub/Colab_Work/assignments/assignment01/out/production/assignment01/data/test/ham");
-        //c:/Users/Irfaan/Documents/GitHub/Colab_Work
+        // URL must be altered when running on different computers
+        File spamDir = new File("C:\\Users\\100400606\\Documents\\GitHub\\CSCI2020u\\assignments\\assignment01\\out\\production\\assignment01\\data\\test\\spam");
+        File hamDir = new File("C:\\Users\\100400606\\Documents\\GitHub\\CSCI2020u\\assignments\\assignment01\\out\\production\\assignment01\\data\\test\\ham");
+        File spamTest = new File("C:\\Users\\100400606\\Documents\\GitHub\\CSCI2020u\\assignments\\assignment01\\out\\production\\assignment01\\data\\test\\spam");
+        File hamTest = new File("C:\\Users\\100400606\\Documents\\GitHub\\CSCI2020u\\assignments\\assignment01\\out\\production\\assignment01\\data\\test\\ham");
 
         // create and train the filter
         Filter f = new Filter();
         f.trainSpam(spamDir);
         f.trainHam(hamDir);
 
-        //create proper variable for contents of list
-        ObservableList<TestFile> fileList =
-                FXCollections.observableArrayList();
-        //ArrayList<TestFile> fileList = new ArrayList<>();
+        // create proper variable for contents of list
+        ObservableList<TestFile> fileList = FXCollections.observableArrayList();
 
         // test the filter, placing the results into a list
         f.test(spamTest, fileList);
         f.test(hamTest, fileList);
 
         // Load the fileList into a table to show results
-
-        // FIX TABLE.SETITEMS()
         table = new TableView<>();
         table.setItems(fileList);
 
         // Table columns
-        // FIX TABLE TO GET VALUES
         TableColumn<TestFile,String> fileColumn;
         fileColumn = new TableColumn<>("File");
         fileColumn.setMinWidth(300);
@@ -83,24 +76,27 @@ public class Main extends Application {
         table.getColumns().add(classColumn);
         table.getColumns().add(spamColumn);
 
-        //Display Area Below Table
+        // Display Area Below Table
         GridPane editArea = new GridPane();
         editArea.setPadding(new Insets(10, 10, 10, 10));
         editArea.setVgap(10);
         editArea.setHgap(10);
 
-        // FIX VARIABLES
+        // FIX VARIABLES x and y
+        // convert probability into string and then replace x and y respectively
+
+        // Area to show accuracy and probability below table
         Label accuracyLabel = new Label("Accuracy:");
         editArea.add(accuracyLabel, 0, 0);
         TextField accuracyField = new TextField();
-        String y = "Accuracy Variable";
+        String y = "Accuracy Variable y";
         accuracyField.setEditable(false);
         accuracyField.setText(y);
         editArea.add(accuracyField, 1, 0);
 
         Label precisionLabel = new Label("Precision:");
         editArea.add(precisionLabel, 0, 1);
-        String x = "Precision Variable";
+        String x = "Precision Variable x";
         TextField precisionField = new TextField();
         precisionField.setEditable(false);
         precisionField.setText(x);
@@ -112,7 +108,6 @@ public class Main extends Application {
         layout.setBottom(editArea);
 
         Scene scene = new Scene(layout, 800, 600);
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Spam Master 3000");
         primaryStage.setScene(scene);
         primaryStage.show();
